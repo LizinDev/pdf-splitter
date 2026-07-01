@@ -18,10 +18,13 @@ TEXTS: dict[str, dict[str, str]] = {
     "pt": {
         # --- window / sections ---
         "app_title": "Divisor de PDF",
-        "section_file": "1. Arquivo PDF",
-        "section_add": "2. Adicionar um intervalo de páginas",
-        "section_list": "3. Intervalos a exportar",
-        "section_output": "4. Pasta de destino (opcional)",
+        "app_subtitle": "Divida PDFs por intervalo de páginas",
+        "section_file": "Documento",
+        "section_map": "Mapa de páginas",
+        "section_add": "Adicionar intervalo",
+        "section_list": "Intervalos",
+        "section_output": "Pasta de destino",
+        "map_empty": "Selecione um PDF para ver o mapa de páginas.",
         # --- file row ---
         "no_file": "Nenhum arquivo selecionado",
         "browse": "Procurar…",
@@ -30,7 +33,12 @@ TEXTS: dict[str, dict[str, str]] = {
         "from": "De",
         "to": "Até",
         "name": "Nome",
+        "name_optional": "Nome (opcional)",
         "add_range": "Adicionar intervalo",
+        # --- list columns ---
+        "col_name": "Nome do arquivo",
+        "col_pages": "Páginas",
+        "col_count": "Qtd",
         "add_help": (
             "Os intervalos incluem as duas páginas e podem se sobrepor "
             "(ex.: 1-3, 3-8, 5-20). O nome é opcional — em branco, usa um "
@@ -40,8 +48,6 @@ TEXTS: dict[str, dict[str, str]] = {
         "rename": "Renomear",
         "remove": "Remover",
         "clear_all": "Limpar tudo",
-        "row_named": "{name}  —  páginas {label}  ({count})",
-        "row_unnamed": "Sem nome  —  páginas {label}  ({count})",
         # --- output row ---
         "output_help": (
             "Deixe em branco para criar uma pasta '<nome>_split' ao lado do PDF."
@@ -77,17 +83,24 @@ TEXTS: dict[str, dict[str, str]] = {
     },
     "en": {
         "app_title": "PDF Splitter",
-        "section_file": "1. PDF file",
-        "section_add": "2. Add a page range",
-        "section_list": "3. Ranges to export",
-        "section_output": "4. Output folder (optional)",
+        "app_subtitle": "Split PDFs by page range",
+        "section_file": "Document",
+        "section_map": "Page map",
+        "section_add": "Add a page range",
+        "section_list": "Ranges",
+        "section_output": "Output folder",
+        "map_empty": "Select a PDF to see the page map.",
         "no_file": "No file selected",
         "browse": "Browse…",
         "pages_count": "{n} pages",
         "from": "From",
         "to": "To",
         "name": "Name",
+        "name_optional": "Name (optional)",
         "add_range": "Add range",
+        "col_name": "File name",
+        "col_pages": "Pages",
+        "col_count": "Count",
         "add_help": (
             "Ranges are inclusive and may overlap (e.g. 1-3, 3-8, 5-20). "
             "Name is optional — blank uses an automatic file name."
@@ -95,8 +108,6 @@ TEXTS: dict[str, dict[str, str]] = {
         "rename": "Rename",
         "remove": "Remove",
         "clear_all": "Clear all",
-        "row_named": "{name}  —  pages {label}  ({count})",
-        "row_unnamed": "Unnamed  —  pages {label}  ({count})",
         "output_help": (
             "Leave blank to create a '<name>_split' folder next to the PDF."
         ),

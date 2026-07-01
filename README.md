@@ -33,12 +33,13 @@ You **don't need to install Python**. Just download the ready-made app from the
    click **More info** → **Run anyway** (only the first time; the app is safe).
 
 ### How to use
-1. **PDF file** → *Browse* and pick the PDF (the total page count is shown).
+1. **Document** → *Browse* and pick the PDF (the total page count is shown).
 2. **Add a page range**: choose *From* / *To*, an optional *Name*, and click
-   **Add range**. Repeat for each part — ranges may overlap.
-3. **Ranges to export**: use *Rename* (or double-click), *Remove*, or
-   *Clear all* to edit the list.
-4. **Destination folder** (optional): if left blank, a `<name>_split` folder is
+   **Add range**. Repeat for each part — ranges may overlap. The **Page map**
+   shows each range as a colored band over the document.
+3. **Ranges**: use *Rename* (or double-click), *Remove*, or *Clear all* to edit
+   the list.
+4. **Output folder** (optional): if left blank, a `<name>_split` folder is
    created next to the PDF.
 5. Click **Split PDF**.
 
