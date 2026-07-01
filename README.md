@@ -1,6 +1,7 @@
 # PDF Splitter / Divisor de PDF
 
-[![⬇️ Baixar para macOS](https://img.shields.io/badge/⬇️_Baixar_para_macOS-PDFSplitter.zip-blue?style=for-the-badge)](https://github.com/LizinDev/pdf-splitter/releases/latest/download/PDFSplitter-macos.zip)
+[![⬇️ Baixar para macOS](https://img.shields.io/badge/⬇️_Baixar_para-macOS-blue?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/LizinDev/pdf-splitter/releases/latest/download/PDFSplitter-macos.zip)
+[![⬇️ Baixar para Windows](https://img.shields.io/badge/⬇️_Baixar_para-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/LizinDev/pdf-splitter/releases/latest/download/PDFSplitter.exe)
 [![Latest release](https://img.shields.io/github/v/release/LizinDev/pdf-splitter?style=for-the-badge&label=vers%C3%A3o)](https://github.com/LizinDev/pdf-splitter/releases/latest)
 
 Split one PDF into several smaller PDFs by page range. Each range can be given
@@ -13,16 +14,23 @@ and **English**.
 
 ---
 
-## 📥 Para o usuário — baixar o aplicativo (macOS)
+## 📥 Para o usuário — baixar o aplicativo
 
-Você **não precisa instalar o Python**. Basta baixar o aplicativo pronto:
+Você **não precisa instalar o Python**. Basta baixar o aplicativo pronto na
+página de **[Releases](../../releases)** (ou usar os botões acima).
 
-1. Abra a página de **[Releases](../../releases)** deste repositório.
-2. Baixe o arquivo **`PDFSplitter-macos.zip`**.
-3. Descompacte e mova **`PDFSplitter.app`** para a pasta *Aplicativos*.
-4. Na **primeira vez**, clique com o botão direito no app → **Abrir** →
+**No macOS:**
+1. Baixe o arquivo **`PDFSplitter-macos.zip`**.
+2. Descompacte e mova **`PDFSplitter.app`** para a pasta *Aplicativos*.
+3. Na **primeira vez**, clique com o botão direito no app → **Abrir** →
    **Abrir** (isso é necessário só uma vez porque o app não tem assinatura
    paga da Apple; ele é seguro).
+
+**No Windows:**
+1. Baixe o arquivo **`PDFSplitter.exe`**.
+2. Dê dois cliques para abrir. Se o Windows mostrar um aviso azul do
+   *SmartScreen*, clique em **Mais informações** → **Executar mesmo assim**
+   (só na primeira vez; o app é seguro).
 
 ### Como usar
 1. **Arquivo PDF** → *Procurar* e escolha o PDF (mostra o total de páginas).
