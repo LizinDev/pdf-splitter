@@ -13,7 +13,7 @@ and **English**.
 
 ---
 
-## 📥 Para a usuária — baixar o aplicativo (macOS)
+## 📥 Para o usuário — baixar o aplicativo (macOS)
 
 Você **não precisa instalar o Python**. Basta baixar o aplicativo pronto:
 
