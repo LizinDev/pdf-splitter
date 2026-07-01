@@ -1,5 +1,8 @@
 # PDF Splitter / Divisor de PDF
 
+[![⬇️ Baixar para macOS](https://img.shields.io/badge/⬇️_Baixar_para_macOS-PDFSplitter.zip-blue?style=for-the-badge)](https://github.com/LizinDev/pdf-splitter/releases/latest/download/PDFSplitter-macos.zip)
+[![Latest release](https://img.shields.io/github/v/release/LizinDev/pdf-splitter?style=for-the-badge&label=vers%C3%A3o)](https://github.com/LizinDev/pdf-splitter/releases/latest)
+
 Split one PDF into several smaller PDFs by page range. Each range can be given
 its own file name. Simple graphical app, available in **Portuguese** (default)
 and **English**.
