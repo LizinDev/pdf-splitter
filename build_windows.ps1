@@ -13,6 +13,7 @@ python -m PyInstaller `
     --clean `
     --onefile `
     --windowed `
+    --icon assets\icon.ico `
     --name PDFSplitter `
     run_gui.pyw
 

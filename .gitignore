@@ -17,6 +17,10 @@ dist/
 *_split/
 *.pdf
 
+# Generated icon build artifacts (icon.png / icon.ico are committed)
+icon.iconset/
+assets/icon.icns
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
