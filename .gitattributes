@@ -1,0 +1,5 @@
+# Keep Unix line endings on files that run on macOS/Linux or in CI,
+# so scripts don't break with a stray carriage return.
+*.sh   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
