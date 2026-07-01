@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdfsplit"
+version = "1.0.0"
+description = "Split a PDF into multiple files by page range, with a simple GUI (English/Portuguese)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = ["pypdf>=4"]
+
+[project.gui-scripts]
+pdfsplit = "pdfsplit.gui:main"
+
+[project.scripts]
+pdfsplit-cli = "pdfsplit.cli:main"
+
+[tool.setuptools]
+packages = ["pdfsplit"]
