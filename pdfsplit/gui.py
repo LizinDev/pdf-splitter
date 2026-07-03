@@ -7,6 +7,8 @@ All user-facing text comes from ``pdfsplit.i18n`` (default language: Portuguese)
 
 from __future__ import annotations
 
+import queue
+import threading
 import tkinter as tk
 from dataclasses import replace
 from pathlib import Path
@@ -91,6 +93,8 @@ class PdfSplitApp(ttk.Frame):
         self.ranges: list[PageRange] = []
         self.selected_index: int | None = None  # highlighted band in the map
         self._tooltips: list[Tooltip] = []
+        self._reader: PdfReader | None = None  # kept so the split reuses it
+        self._result_queue: queue.Queue | None = None  # worker -> Tk thread
 
         # --- build UI --------------------------------------------------
         self._build_header()
@@ -289,11 +293,13 @@ class PdfSplitApp(ttk.Frame):
         if not path:
             return
         try:
-            total = len(PdfReader(path).pages)
+            reader = PdfReader(path)
+            total = len(reader.pages)
         except Exception as exc:
             messagebox.showerror(t("err_open_title"), str(exc))
             return
 
+        self._reader = reader
         self.pdf_path = Path(path)
         self.total_pages = total
         self.path_var.set(str(self.pdf_path))
@@ -369,13 +375,49 @@ class PdfSplitApp(ttk.Frame):
         if not self.pdf_path or not self.ranges:
             return
         out_dir = self.out_var.get().strip() or None
+
+        # Run the split in a worker thread so the window stays responsive;
+        # results come back through a queue polled with ``after``.
+        self.split_btn.configure(state="disabled")
+        self.status_var.set(t("status_working"))
+        self._result_queue = queue.Queue(maxsize=1)
+        threading.Thread(
+            target=self._split_worker,
+            args=(self.pdf_path, list(self.ranges), out_dir, self._reader),
+            daemon=True,
+        ).start()
+        self.after(100, self._poll_split_result)
+
+    def _split_worker(
+        self,
+        pdf_path: Path,
+        ranges: list[PageRange],
+        out_dir: str | None,
+        reader: PdfReader | None,
+    ) -> None:
+        """Background thread: no widget access allowed in here."""
         try:
-            written = split_pdf(self.pdf_path, self.ranges, out_dir)
+            written = split_pdf(pdf_path, ranges, out_dir, reader=reader)
+            self._result_queue.put(("done", written))
         except SplitError as exc:
-            messagebox.showerror(t("err_split_title"), str(exc))
+            self._result_queue.put(("error", str(exc)))
+        except Exception as exc:  # last resort — a failure must never be silent
+            self._result_queue.put(("error", f"{type(exc).__name__}: {exc}"))
+
+    def _poll_split_result(self) -> None:
+        try:
+            kind, payload = self._result_queue.get_nowait()
+        except queue.Empty:
+            self.after(100, self._poll_split_result)
+            return
+
+        self._refresh_controls()
+        if kind == "error":
+            messagebox.showerror(t("err_split_title"), payload)
             self.status_var.set(t("status_failed"))
             return
 
+        written = payload
         folder = written[0].parent
         self.status_var.set(t("status_done", n=len(written), folder=folder))
         messagebox.showinfo(

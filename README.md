@@ -111,5 +111,3 @@ assets/               # app icons (icon.png/.ico) + make_icon.py
 
 ## License
 MIT — see [LICENSE](LICENSE).
-</content>
-</invoke>

@@ -80,6 +80,9 @@ TEXTS: dict[str, dict[str, str]] = {
         "err_exceeds": "O intervalo {label} ultrapassa o documento ({total} páginas).",
         "err_not_found": "Arquivo não encontrado: {path}",
         "err_cannot_read": "Não foi possível ler '{name}': {error}",
+        "err_out_dir": "Não foi possível criar a pasta de destino '{path}': {error}",
+        "err_write": "Não foi possível gravar o intervalo {label}: {error}",
+        "status_working": "Dividindo…",
     },
     "en": {
         "app_title": "PDF Splitter",
@@ -131,6 +134,9 @@ TEXTS: dict[str, dict[str, str]] = {
         "err_exceeds": "Range {label} exceeds the document ({total} pages).",
         "err_not_found": "File not found: {path}",
         "err_cannot_read": "Could not read '{name}': {error}",
+        "err_out_dir": "Could not create the output folder '{path}': {error}",
+        "err_write": "Could not write range {label}: {error}",
+        "status_working": "Splitting…",
     },
 }
 

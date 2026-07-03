@@ -134,6 +134,7 @@ def split_pdf(
     input_path: str | Path,
     ranges: Sequence[PageRange],
     output_dir: str | Path | None = None,
+    reader: PdfReader | None = None,
 ) -> list[Path]:
     """Split ``input_path`` into one PDF per range.
 
@@ -142,12 +143,17 @@ def split_pdf(
         ranges:      Page ranges to extract (1-based, inclusive). May overlap.
         output_dir:  Where to write results. Defaults to a "<name>_split"
                      folder next to the source file.
+        reader:      An already-open PdfReader for ``input_path``. Passing one
+                     avoids loading the whole file into memory a second time;
+                     the trade-off is that changes made to the file on disk
+                     since it was opened are not picked up.
 
     Returns:
         The list of written file paths.
 
     Raises:
-        SplitError: If the file is missing/unreadable or a range is invalid.
+        SplitError: If the file is missing/unreadable, a range is invalid, or
+            an output file cannot be written.
     """
     source = Path(input_path)
     if not source.is_file():
@@ -157,7 +163,8 @@ def split_pdf(
         raise SplitError(t("err_no_ranges"))
 
     try:
-        reader = PdfReader(source)
+        if reader is None:
+            reader = PdfReader(source)
         total = len(reader.pages)
     except Exception as exc:  # pypdf raises a variety of errors
         raise SplitError(t("err_cannot_read", name=source.name, error=exc)) from exc
@@ -165,19 +172,30 @@ def split_pdf(
     validate_against(ranges, total)
 
     out_dir = Path(output_dir) if output_dir else source.parent / f"{source.stem}_split"
-    out_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        out_dir.mkdir(parents=True, exist_ok=True)
+    except OSError as exc:
+        raise SplitError(t("err_out_dir", path=out_dir, error=exc)) from exc
 
     written: list[Path] = []
     taken: set[Path] = set()
     for page_range in ranges:
-        writer = PdfWriter()
-        for index in page_range.zero_based_indices():
-            writer.add_page(reader.pages[index])
+        try:
+            writer = PdfWriter()
+            # pypdf parses page content lazily, so corrupt pages surface here.
+            for index in page_range.zero_based_indices():
+                writer.add_page(reader.pages[index])
 
-        destination = _dedupe(output_path_for(source, out_dir, page_range), taken)
-        taken.add(destination)
-        with open(destination, "wb") as handle:
-            writer.write(handle)
+            destination = _dedupe(output_path_for(source, out_dir, page_range), taken)
+            taken.add(destination)
+            with open(destination, "wb") as handle:
+                writer.write(handle)
+        except SplitError:
+            raise
+        except Exception as exc:
+            raise SplitError(
+                t("err_write", label=page_range.label(), error=exc)
+            ) from exc
         written.append(destination)
 
     return written

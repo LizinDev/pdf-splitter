@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pdfsplit"
-version = "1.0.0"
+dynamic = ["version"]
 description = "Split a PDF into multiple files by page range, with a simple GUI (English/Portuguese)."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -19,3 +19,6 @@ pdfsplit-cli = "pdfsplit.cli:main"
 
 [tool.setuptools]
 packages = ["pdfsplit"]
+
+[tool.setuptools.dynamic]
+version = { attr = "pdfsplit.__version__" }
