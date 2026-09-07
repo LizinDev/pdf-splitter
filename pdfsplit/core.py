@@ -81,8 +81,8 @@ class PageRange:
                 return cls(int(start_str), int(end_str))
             page = int(token)
             return cls(page, page)
-        except ValueError:
-            raise SplitError(t("err_invalid_token", token=token))
+        except ValueError as exc:
+            raise SplitError(t("err_invalid_token", token=token)) from exc
 
 
 def parse_ranges(text: str) -> list[PageRange]:

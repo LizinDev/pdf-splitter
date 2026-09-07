@@ -123,9 +123,9 @@ class PdfSplitApp(ttk.Frame):
         self._tooltips.append(Tooltip(cv, text, self.f_tip))
         return cv
 
-    def _eyebrow(self, row: int, text: str, help: str | None = None) -> None:
+    def _eyebrow(self, row: int, text: str, help_text: str | None = None) -> None:
         """An uppercase section label, optionally with a '?' help badge."""
-        if help is None:
+        if help_text is None:
             ttk.Label(self, text=text.upper(), style="Eyebrow.TLabel").grid(
                 row=row, column=0, sticky="w", pady=(PAD, 2)
             )
@@ -133,7 +133,7 @@ class PdfSplitApp(ttk.Frame):
         fr = ttk.Frame(self, style="App.TFrame")
         fr.grid(row=row, column=0, sticky="w", pady=(PAD, 2))
         ttk.Label(fr, text=text.upper(), style="Eyebrow.TLabel").grid(row=0, column=0)
-        self._help_badge(fr, help).grid(row=0, column=1, padx=(6, 0))
+        self._help_badge(fr, help_text).grid(row=0, column=1, padx=(6, 0))
 
     # ------------------------------------------------------------------ #
     # UI construction
@@ -184,7 +184,7 @@ class PdfSplitApp(ttk.Frame):
         self.canvas.bind("<Configure>", lambda _e: self._draw_map())
 
     def _build_picker(self) -> None:
-        self._eyebrow(5, t("section_add"), help=t("add_help"))
+        self._eyebrow(5, t("section_add"), help_text=t("add_help"))
         row = ttk.Frame(self, style="App.TFrame")
         row.grid(row=6, column=0, sticky="ew")
 
@@ -254,7 +254,7 @@ class PdfSplitApp(ttk.Frame):
         )
 
     def _build_output(self) -> None:
-        self._eyebrow(10, t("section_output"), help=t("output_help"))
+        self._eyebrow(10, t("section_output"), help_text=t("output_help"))
         row = ttk.Frame(self, style="App.TFrame")
         row.grid(row=11, column=0, sticky="ew")
         row.columnconfigure(0, weight=1)
