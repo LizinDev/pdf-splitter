@@ -10,7 +10,9 @@ and **English**.
 
 - Inclusive page ranges that **may overlap** (e.g. `1-3`, `3-8`, `5-20`)
 - Optional custom name per output file
-- Colliding output names are kept unique automatically (`_2`, `_3`, …)
+- Colliding output names are kept unique automatically (`_2`, `_3`, …),
+  including files left over from a previous run in the same output folder, so
+  running the split again never overwrites existing PDFs
 - The original PDF is never modified
 
 ---
@@ -78,6 +80,14 @@ PyInstaller cannot cross-compile, so each app must be built on its own OS:
 You usually don't need to build by hand: every push to `main` builds both apps
 in GitHub Actions (a macOS runner and a Windows runner) and uploads them as
 downloadable artifacts. See [`.github/workflows/build.yml`](.github/workflows/build.yml).
+
+### Run the tests
+```bash
+pip install pytest
+pytest
+```
+
+The same command runs in CI on every push and pull request.
 
 ### Publishing a downloadable release
 Push a version tag and the same workflow builds both apps and attaches them to a
