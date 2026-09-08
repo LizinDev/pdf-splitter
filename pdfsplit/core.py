@@ -178,7 +178,7 @@ def split_pdf(
         raise SplitError(t("err_out_dir", path=out_dir, error=exc)) from exc
 
     written: list[Path] = []
-    taken: set[Path] = set()
+    taken: set[Path] = {path for path in out_dir.iterdir() if path.is_file()}
     for page_range in ranges:
         try:
             writer = PdfWriter()
