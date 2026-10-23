@@ -295,7 +295,7 @@ class PdfSplitApp(ttk.Frame):
         try:
             reader = PdfReader(path)
             total = len(reader.pages)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 — any unreadable file must end in a dialog, not a crash
             messagebox.showerror(t("err_open_title"), str(exc))
             return
 
@@ -401,7 +401,7 @@ class PdfSplitApp(ttk.Frame):
             self._result_queue.put(("done", written))
         except SplitError as exc:
             self._result_queue.put(("error", str(exc)))
-        except Exception as exc:  # last resort — a failure must never be silent
+        except Exception as exc:  # noqa: BLE001 — last resort, a failure must never be silent
             self._result_queue.put(("error", f"{type(exc).__name__}: {exc}"))
 
     def _poll_split_result(self) -> None:
@@ -527,7 +527,7 @@ class PdfSplitApp(ttk.Frame):
         base_y = 22
         step = self._tick_step(self.total_pages)
         canvas.create_line(left, base_y, right, base_y, fill=BORDER)
-        for p in range(0, self.total_pages + 1):
+        for p in range(self.total_pages + 1):
             xp = x(p)
             major = p == 0 or p == self.total_pages or p % step == 0
             canvas.create_line(

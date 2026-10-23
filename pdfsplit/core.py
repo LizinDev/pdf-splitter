@@ -15,9 +15,9 @@ person sees in a PDF viewer.
 from __future__ import annotations
 
 import re
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Sequence
 
 from pypdf import PdfReader, PdfWriter
 
@@ -70,7 +70,7 @@ class PageRange:
         return str(self.start) if self.start == self.end else f"{self.start}-{self.end}"
 
     @classmethod
-    def parse(cls, token: str) -> "PageRange":
+    def parse(cls, token: str) -> PageRange:
         """Parse a single token like '5' or '1-3' into a PageRange."""
         token = token.strip()
         if not token:
