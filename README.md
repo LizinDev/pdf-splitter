@@ -81,13 +81,15 @@ You usually don't need to build by hand: every push to `main` builds both apps
 in GitHub Actions (a macOS runner and a Windows runner) and uploads them as
 downloadable artifacts. See [`.github/workflows/build.yml`](.github/workflows/build.yml).
 
-### Run the tests
+### Run the tests and lint
 ```bash
-pip install pytest
+pip install pytest ruff==0.17.2
 pytest
+ruff check .
 ```
 
-The same command runs in CI on every push and pull request.
+CI runs the same on every push and pull request, plus a smoke test of the CLI.
+Ruff is pinned so new upstream rules don't turn CI red without a code change.
 
 ### Publishing a downloadable release
 Push a version tag and the same workflow builds both apps and attaches them to a
@@ -116,7 +118,8 @@ run_gui.pyw           # entry point used by the app builders
 build_mac.sh          # local macOS build
 build_windows.ps1     # local Windows build
 assets/               # app icons (icon.png/.ico) + make_icon.py
-.github/workflows/    # CI: builds the macOS and Windows apps
+tests/                # pytest suite
+.github/workflows/    # ci.yml: lint, tests, CLI smoke · build.yml: macOS and Windows apps
 ```
 
 ## License
